@@ -26,13 +26,14 @@ echo "$WEB_FQDN {
     #
     # fileserver
     #
-    proxy / 127.0.0.1:8000 {
-         header_upstream Host {host}
-         header_upstream X-Real-IP {remote}
-         header_upstream X-Forwarded-For {remote}
-         header_upstream X-Forwarded-Proto {scheme}
-         max_fails 0
-    }
+    fastcgi / 127.0.0.1:8000
+# {
+#         header_upstream Host {host}
+#         header_upstream X-Real-IP {remote}
+#         header_upstream X-Forwarded-For {remote}
+#         header_upstream X-Forwarded-Proto {scheme}
+#         max_fails 0
+#    }
     gzip
     log stdout
     errors stdout
@@ -64,4 +65,4 @@ sed -i "/^FILE_SERVER_ROOT = /s/= .*/= 'https:\/\/$WEB_FQDN\/seafhttp'/" /conf/s
 /seafile/seafile.sh start
 /seafile/seahub.sh start-fastcgi
 
-caddy --conf /etc/Caddyfile --log stdout
+caddy --conf /etc/Caddyfile
