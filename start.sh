@@ -38,6 +38,14 @@ echo "$WEB_FQDN {
     log stdout
     errors stdout
 }
+
+$WEB_FQDN/media {
+    root /seafile/seahub/media/
+    gzip
+    log stdout
+    errors stdout
+}
+
 $WEB_FQDN/seafhttp {
     #
     # seahub
