@@ -26,17 +26,35 @@ echo "$WEB_FQDN {
     #
     # fileserver
     #
-    proxy /seafhttp http://127.0.0.1:8082 {
+    proxy / 127.0.0.1:8000 {
          header_upstream Host {host}
          header_upstream X-Real-IP {remote}
          header_upstream X-Forwarded-For {remote}
+         header_upstream X-Forwarded-Proto {scheme}
          max_fails 0
     }
-
+    gzip
+    log stdout
+    errors stdout
+}
+$WEB_FQDN/seafhttp {
     #
     # seahub
     #
-    fastcgi / 127.0.0.1:8000
+    proxy / 127.0.0.1:8082 {
+         header_upstream Host {host}
+         header_upstream X-Real-IP {remote}
+         header_upstream X-Forwarded-For {remote}
+         header_upstream X-Forwarded-Proto {scheme}
+         max_fails 0
+    }
+    rewrite /seafhttp {
+        regexp (.*)
+        to     {1}
+    }
+    gzip
+    log stdout
+    errors stdout
 }"> /etc/Caddyfile
 
 
