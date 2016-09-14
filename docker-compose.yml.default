@@ -9,13 +9,13 @@ services:
       - seanet
     environment:
       SERVER_NAME: *servername*
+      SERVER_IP: *seafile.whatever.com*
       MYSQL_HOST: mariadb
       MYSQL_ROOT_PASSWD: *mysql_root_pass*
       MYSQL_USER: *mysqluser*
       MYSQL_USER_PASSWD: *mysql_user_pass*
       SEA_ADMIN_USER: *seafile_admin_user*
       SEA_ADMIN_PASS: *seafile_admin_pass*
-      WEB_FQDN: *fqdn*
     volumes:
       - ./data:/data
       - ./ssl:/root/.caddy

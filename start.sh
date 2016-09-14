@@ -1,6 +1,7 @@
 #!/bin/bash
 
 while ! nc -z $MYSQL_HOST 3306; do sleep 3; done
+sleep 30 #wait for mysql to actually start.
 if [ ! -d /data/ccnet ]
 then
     mv /seafile /data
@@ -16,7 +17,7 @@ tar --no-same-owner -C /usr/bin/ -xzf /tmp/caddy.tar.gz && rm /tmp/caddy.tar.gz
 
 echo "Regenerating Caddyfile"
 
-echo "$WEB_FQDN {
+echo "$SERVER_IP {
     #
     # fileserver
     #
@@ -26,14 +27,14 @@ echo "$WEB_FQDN {
     errors stdout
 }
 
-$WEB_FQDN/media {
+$SERVER_IP/media {
     root /data/seafile/seahub/media/
     gzip
     log stdout
     errors stdout
 }
 
-$WEB_FQDN/seafhttp {
+$SERVER_IP/seafhttp {
     #
     # seahub
     #
@@ -54,8 +55,8 @@ $WEB_FQDN/seafhttp {
 }"> /etc/Caddyfile
 
 
-sed -i "/^SERVICE_URL = /s/= .*/= https:\/\/$WEB_FQDN/" /data/conf/ccnet.conf
-sed -i "/^FILE_SERVER_ROOT = /s/= .*/= 'https:\/\/$WEB_FQDN\/seafhttp'/" /data/conf/seahub_settings.py
+sed -i "/^SERVICE_URL = /s/= .*/= https:\/\/$SERVER_IP/" /data/conf/ccnet.conf
+sed -i "/^FILE_SERVER_ROOT = /s/= .*/= 'https:\/\/$SERVER_IP\/seafhttp'/" /data/conf/seahub_settings.py
 
 /data/seafile/seafile.sh start
 /data/seafile/seahub.sh start-fastcgi
