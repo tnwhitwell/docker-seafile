@@ -2,6 +2,7 @@ version: '2'
 services:
   seafile:
     image: tnwhitwell/seafile
+    restart: always
     depends_on:
       - mariadb
     networks:
@@ -24,6 +25,7 @@ services:
 
   mariadb:
     image: linuxserver/mariadb
+    restart: always
     networks:
       - seanet
     environment:
