@@ -5,7 +5,7 @@ sleep 30 #wait for mysql to actually start.
 if [ ! -d /data/ccnet ]
 then
     mv /seafile /data
-    bash /data/seafile/setup-seafile-mysql.sh auto -d /data/seadata -q $(hostname -i)
+    bash /data/seafile/setup-seafile-mysql.sh auto -q $(hostname -i)
     sed -i.bak 's/email = ask_admin_email()/email = os.environ["SEA_ADMIN_USER"]/' /data/seafile/check_init_admin.py
     sed -i.bak 's/passwd = ask_admin_password()/passwd = os.environ["SEA_ADMIN_PASS"]/' /data/seafile/check_init_admin.py
     echo "FILE_SERVER_ROOT = http" >> /data/conf/seahub_settings.py
