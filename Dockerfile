@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ADD https://bintray.com/artifact/download/seafile-org/seafile/seafile-server_6.0.3_x86-64.tar.gz /tmp
+ADD https://download.seafile.com/d/06d4ca0272/files/?p=/seafile-pro-server_5.1.8_x86-64.tar.gz&dl=1 /tmp
 
 RUN tar -xzf /tmp/seafile-server_6.0.3_x86-64.tar.gz -C /tmp && mv /tmp/seafile-server-6.0.3 /seafile
 
