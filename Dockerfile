@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y python && apt-get install -y python2.7 
 
 RUN apt-get install -y netcat wget
 
+RUN apt-get purge -y && apt-get --yes autoremove && apt-get clean all && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 ADD start.sh /
 
 CMD ["/start.sh"]
